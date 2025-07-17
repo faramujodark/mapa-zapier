@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluxo Zapier - Mapa Mental</title>
+    <title>Challenge - Monitoramento e Automação de Conteúdo para WhatsApp</title>
     <style>
         * {
             margin: 0;
@@ -13,41 +13,78 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2C3E50 0%, #3498DB 50%, #1ABC9C 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
+            overflow-x: auto;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             width: 100%;
+            margin: 0 auto;
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .header h1 {
-            color: white;
-            font-size: 3em;
+            color: #2c3e50;
+            font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .header .subtitle {
-            color: rgba(255,255,255,0.9);
+            color: #7f8c8d;
             font-size: 1.3em;
             font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .challenge-info {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .flow-visual {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+            white-space: pre;
         }
 
         .flow-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             margin-bottom: 40px;
         }
 
@@ -117,7 +154,19 @@
             color: #2c3e50;
         }
 
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
         /* Cores específicas para cada etapa */
+        .step-0 { --accent-color: #9b59b6; }
         .step-1 { --accent-color: #e74c3c; }
         .step-2 { --accent-color: #f39c12; }
         .step-3 { --accent-color: #3498db; }
@@ -127,55 +176,493 @@
         .step-7 { --accent-color: #34495e; }
         .step-8 { --accent-color: #27ae60; }
 
-        .flow-arrows {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .arrow {
-            color: rgba(255,255,255,0.8);
-            font-size: 2em;
-            margin: 0 10px;
-        }
-
-        .summary-section {
+        .results-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .summary-section h2 {
-            color: #2c3e50;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .summary-grid {
+        .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
 
-        .summary-item {
+        .result-item {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 15px;
             border-top: 4px solid #3498db;
         }
 
-        .summary-item h3 {
+        .result-item h3 {
             color: #2c3e50;
             margin-bottom: 10px;
         }
 
-        .summary-item p {
+        .result-item p {
             color: #7f8c8d;
             font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .status-success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .table-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        .original-table-container {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .table-header-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1.5fr 2fr;
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-column {
+            padding: 20px 15px;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+        }
+
+        .header-column:last-child {
+            border-right: none;
+        }
+
+        .data-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1.5fr 2fr;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-column {
+            padding: 20px 15px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 1.5;
+        }
+
+        .data-column:last-child {
+            border-right: none;
+        }
+
+        .keyword-col {
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-col {
+            font-size: 14px;
+        }
+
+        .group-col {
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message-col {
+            font-size: 14px;
+        }
+
+        .status-summary {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .status-list {
+            margin-top: 15px;
+        }
+
+        .status-line {
+            padding: 8px 0;
+            margin: 5px 0;
+        }
+
+        .database-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .sheets-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .sheet-card {
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sheet-card.aba1 {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+        }
+
+        .sheet-card.aba2 {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .sheet-card.aba3 {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #2c3e50;
+        }
+
+        .sheet-header {
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .sheet-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .sheet-header h3 {
+            display: inline;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sheet-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .sheet-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .column-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .column-item {
+            padding: 4px 0;
+        }
+
+        .config-mapping-list,
+        .template-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mapping-item,
+        .template-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            line-height: 1.4;
+        }
+
+        .formula-details {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #9b59b6;
+        }
+
+        .etapas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .etapa-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            line-height: 1.5;
+            border-left: 4px solid #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .table-header-row,
+            .data-row {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .data-column {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 15px;
+            }
+
+            .data-column:last-child {
+                border-bottom: none;
+            }
+
+            .sheets-container {
+                grid-template-columns: 1fr;
+            }
+
+            .etapas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .zapier-status-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+
+        .status-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .status-column {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .success-header {
+            color: #27ae60;
+        }
+
+        .pending-header {
+            color: #f39c12;
+        }
+
+        .status-list {
+            margin: 15px 0;
+        }
+
+        .status-step {
+            padding: 8px 0;
+            color: #2c3e50;
+        }
+
+        .status-step.pending {
+            color: #f39c12;
+        }
+
+        .completion-badge {
+            background: #27ae60;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .pending-badge {
+            background: #f39c12;
+        }
+
+        .evidence-section {
+            margin-top: 30px;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .evidence-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+        }
+
+        .evidence-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .view-image-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .evidence-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .evidence-content {
+            line-height: 1.6;
+        }
+
+        .evidence-detail {
+            margin: 8px 0;
+            color: #2c3e50;
+        }
+
+        .evidence-quote {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .config-mapping {
+            background: #e8f4fd;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+
+        .zapier-steps {
+            margin: 15px 0;
+        }
+
+        .zapier-step {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            font-size: 14px;
+        }
+
+        .technical-config {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #9b59b6;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .config-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .table-header,
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .table-cell {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 15px;
+            }
+
+            .status-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .icon {
@@ -197,7 +684,7 @@
                 padding: 20px;
             }
 
-            .summary-grid {
+            .results-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -216,6 +703,7 @@
         .animate-in:nth-child(6) { animation-delay: 0.6s; }
         .animate-in:nth-child(7) { animation-delay: 0.7s; }
         .animate-in:nth-child(8) { animation-delay: 0.8s; }
+        .animate-in:nth-child(9) { animation-delay: 0.9s; }
 
         @keyframes slideIn {
             to {
@@ -228,22 +716,97 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ ZAPIER</h1>
-            <p class="subtitle">Automação de Fluxo de Trabalho</p>
+            <h1>🚀 Challenge - Monitoramento e Automação</h1>
+            <p class="subtitle">Google Alerts → WhatsApp | Sistema de Conteúdo Temático</p>
+            <div class="challenge-info">
+                <strong>✅ Status:</strong> Sistema funcional com 6/8 etapas implementadas | 
+                <strong>📊 Dados Reais:</strong> Turismo capturado e processado com sucesso
+            </div>
+        </div>
+
+        <div class="flow-visual">
+            <h2>🗺️ 1. Mapa do Fluxo da Solução</h2>
+            <div class="flow-diagram">┌─────────────────────┐
+│   GOOGLE ALERTS    │ ← Monitora: startup, turismo, inovação
+│  - startup         │
+│  - turismo         │
+│  - inovação        │
+└──────────┬──────────┘
+           │ Email automático
+           ▼
+┌─────────────────────┐
+│      GMAIL         │ ← Filtro: "Alerta do Google"
+│ Label: AlertaZap   │ ← Label automático aplicado
+│ - Trigger Zapier   │
+└──────────┬──────────┘
+           │ New Email Matching Search
+           ▼
+┌─────────────────────┐
+│      ZAPIER        │
+│ ┌─────────────────┴─────────────────┐
+│ │ ETAPA 1: Gmail Trigger           │
+│ │ ETAPA 2: Filter (OR)             │ ← startup OR turismo OR inovação
+│ │ ETAPA 3: JS Detect Keyword       │ ← Detecta qual palavra-chave
+│ │ ETAPA 4: JS Montar Mensagem      │ ← Extrai título + link
+│ │ ETAPA 5: Sheets Create Row       │ ← Salva na planilha Google
+│ │ ETAPA 6: Slack Webhook           │ ← Envia notificação
+│ │ ETAPA 7: Lookup Config ⚠️        │ ← Busca grupo correto
+│ │ ETAPA 8: Slack Dinâmico ⚠️       │ ← Botão com link correto
+│ └─────────────────┬─────────────────┘
+└─────────────────────┘
+           │ Webhook POST
+           ▼
+┌─────────────────────┐
+│       SLACK        │
+│ #alertas-automaticos│ ← Canal de notificações
+│ ┌─────────────────┴──────────────────┐
+│ │ 📢 Novo Alerta Detectado!         │
+│ │ === Notícias para [turismo] ===   │
+│ │ https://g1.com/teste-alerta       │
+│ │ ┌─────────────────┐               │
+│ │ │ ENVIAR AGORA    │ ← Botão clicável
+│ │ └─────────────────┘               │
+│ └────────────────────────────────────┘
+└──────────┬──────────┘
+           │ Click no botão
+           ▼
+┌─────────────────────┐
+│     WHATSAPP       │
+│ Grupos Temáticos:  │
+│ • Empreendedores SP │ ← Para alertas de startup
+│ • Viagem & Turismo │ ← Para alertas de turismo
+│ • Inovação & Tech  │ ← Para alertas de inovação
+└─────────────────────┘</div>
         </div>
 
         <div class="flow-container">
+            <div class="step-card step-0 animate-in">
+                <div class="step-number">0</div>
+                <div class="step-title">
+                    <span class="icon">📧</span>Gmail Setup
+                </div>
+                <div class="step-description">
+                    Configuração do filtro automático no Gmail
+                </div>
+                <div class="step-details">
+                    <strong>Configuração:</strong> Label "AlertaZap" criado<br>
+                    <strong>Filtro:</strong> Assunto contém "Alerta do Google"<br>
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
+                </div>
+            </div>
+
             <div class="step-card step-1 animate-in">
                 <div class="step-number">1</div>
                 <div class="step-title">
                     <span class="icon">📧</span>Gmail Trigger
                 </div>
                 <div class="step-description">
-                    Monitora novos emails recebidos no Gmail
+                    Monitora novos emails com label AlertaZap
                 </div>
                 <div class="step-details">
-                    <strong>Função:</strong> Detecta quando um novo email chega<br>
-                    <strong>Trigger:</strong> New Email in Inbox
+                    <strong>App:</strong> Gmail → New Email Matching Search<br>
+                    <strong>Search String:</strong> label:AlertaZap<br>
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
                 </div>
             </div>
 
@@ -253,27 +816,33 @@
                     <span class="icon">🔍</span>Filter (OR)
                 </div>
                 <div class="step-description">
-                    Filtra emails que contêm palavras-chave específicas
+                    Filtra por palavras-chave específicas
                 </div>
                 <div class="step-details">
                     <strong>Palavras-chave:</strong><br>
                     • startup<br>
                     • turismo<br>
-                    • inovação
+                    • inovação<br>
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
                 </div>
             </div>
 
             <div class="step-card step-3 animate-in">
                 <div class="step-number">3</div>
                 <div class="step-title">
-                    <span class="icon"⚙️</span>JS Detect Keyword
+                    <span class="icon">⚙️</span>JS Detect Keyword
                 </div>
                 <div class="step-description">
                     JavaScript que identifica qual palavra-chave foi encontrada
                 </div>
                 <div class="step-details">
                     <strong>Função:</strong> Analisa conteúdo do email<br>
-                    <strong>Output:</strong> Categoria identificada
+                    <strong>Output:</strong> Categoria identificada<br>
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
+                    <div class="code-block">const keywords = ['startup', 'turismo', 'inovação'];
+const assunto = inputData.subject.toLowerCase();
+const palavra_chave = keywords.find(k => assunto.includes(k)) || '';
+return { palavra_chave };</div>
                 </div>
             </div>
 
@@ -289,7 +858,10 @@
                     <strong>Extrai:</strong><br>
                     • Título do email<br>
                     • Links importantes<br>
-                    • Resumo do conteúdo
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
+                    <div class="code-block">const titulo = inputData.subject;
+const link = inputData.body_plain.match(/https?:\/\/\S+/)?.[0] || '';
+return { titulo, link };</div>
                 </div>
             </div>
 
@@ -302,11 +874,12 @@
                     Salva os dados na planilha Google Sheets
                 </div>
                 <div class="step-details">
+                    <strong>Planilha:</strong> "Sistema Alertas Whatsapp v2"<br>
                     <strong>Dados salvos:</strong><br>
-                    • Data/Hora<br>
-                    • Categoria<br>
-                    • Título<br>
-                    • Link
+                    • Data/Hora automática<br>
+                    • Categoria detectada<br>
+                    • Título e Link<br>
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
                 </div>
             </div>
 
@@ -316,11 +889,13 @@
                     <span class="icon">📢</span>Slack Webhook
                 </div>
                 <div class="step-description">
-                    Envia notificação inicial para o Slack
+                    Envia notificação com botão "ENVIAR AGORA"
                 </div>
                 <div class="step-details">
-                    <strong>Função:</strong> Alerta da equipe<br>
-                    <strong>Canal:</strong> Notificações gerais
+                    <strong>Canal:</strong> #alertas-automaticos<br>
+                    <strong>App:</strong> AlertasZap<br>
+                    <strong>Função:</strong> Botão clicável funcional<br>
+                    <strong>Status:</strong> <span class="status-success">✅ Funcionando</span>
                 </div>
             </div>
 
@@ -330,11 +905,12 @@
                     <span class="icon">🔎</span>Lookup Config
                 </div>
                 <div class="step-description">
-                    Busca configuração do grupo correto baseado na categoria
+                    Busca configuração do grupo correto
                 </div>
                 <div class="step-details">
                     <strong>Função:</strong> Mapeia categoria → grupo<br>
-                    <strong>Database:</strong> Tabela de configurações
+                    <strong>Database:</strong> Aba Config da planilha<br>
+                    <strong>Status:</strong> <span class="status-pending">⚠️ Em desenvolvimento</span>
                 </div>
             </div>
 
@@ -344,34 +920,362 @@
                     <span class="icon">🚀</span>Slack Dinâmico
                 </div>
                 <div class="step-description">
-                    Envia mensagem personalizada com botão de ação
+                    Botão direcionado para grupo específico
                 </div>
                 <div class="step-details">
-                    <strong>Função:</strong> Mensagem interativa<br>
-                    <strong>Inclui:</strong> Botão com link correto<br>
-                    <strong>Canal:</strong> Grupo específico
+                    <strong>Função:</strong> URL dinâmica do grupo<br>
+                    <strong>Depende:</strong> Etapa 7 (Lookup Config)<br>
+                    <strong>Status:</strong> <span class="status-pending">⚠️ Em desenvolvimento</span>
                 </div>
             </div>
         </div>
 
-        <div class="summary-section">
-            <h2>📋 Resumo do Fluxo</h2>
-            <div class="summary-grid">
-                <div class="summary-item">
-                    <h3>🎯 Objetivo</h3>
-                    <p>Automatizar classificação e distribuição de emails por categoria</p>
+        <div class="table-section">
+            <h2>📊 2. Tabela de Exemplo - Dados Reais da Planilha</h2>
+            
+            <div class="original-table-container">
+                <div class="table-header-row">
+                    <div class="header-column keyword-col">Palavra-chave</div>
+                    <div class="header-column content-col">Conteúdo Real Captado</div>
+                    <div class="header-column group-col">Grupo Destino</div>
+                    <div class="header-column message-col">Mensagem Formatada</div>
                 </div>
-                <div class="summary-item">
-                    <h3>📥 Input</h3>
-                    <p>Emails do Gmail com palavras-chave específicas</p>
+                
+                <div class="data-row">
+                    <div class="data-column keyword-col">
+                        <strong>turismo</strong>
+                    </div>
+                    <div class="data-column content-col">
+                        <strong>Título:</strong> "Teste sustentável"<br>
+                        <strong>Link:</strong> https://g1.com/teste-alerta<br>
+                        <strong>Data:</strong> 16/07/2025 10:51:41
+                    </div>
+                    <div class="data-column group-col">
+                        Viagem & Turismo
+                    </div>
+                    <div class="data-column message-col">
+                        ✈️ <strong>Descubra o Brasil sustentável!</strong><br><br>
+                        Teste sustentável<br><br>
+                        🔗 https://g1.com/teste-alerta<br><br>
+                        #turismo #sustentabilidade
+                    </div>
                 </div>
-                <div class="summary-item">
-                    <h3>📤 Output</h3>
-                    <p>Notificações organizadas no Slack + registro no Sheets</p>
+
+                <div class="data-row">
+                    <div class="data-column keyword-col">
+                        <strong>startup</strong>
+                    </div>
+                    <div class="data-column content-col">
+                        Aguardando próximo alerta do Google Alerts<br>
+                        Grupo configurado: Empreendedores SP
+                    </div>
+                    <div class="data-column group-col">
+                        Empreendedores SP
+                    </div>
+                    <div class="data-column message-col">
+                        🚀 <strong>Novidade no mundo das startups!</strong><br><br>
+                        [Título da notícia]<br><br>
+                        🔗 [Link da notícia]<br><br>
+                        #empreendedorismo #startups
+                    </div>
                 </div>
-                <div class="summary-item">
-                    <h3>⚡ Benefício</h3>
-                    <p>Resposta rápida e organizada para oportunidades de negócio</p>
+
+                <div class="data-row">
+                    <div class="data-column keyword-col">
+                        <strong>inovação</strong>
+                    </div>
+                    <div class="data-column content-col">
+                        Aguardando próximo alerta do Google Alerts<br>
+                        Grupo configurado: Inovação & Tech
+                    </div>
+                    <div class="data-column group-col">
+                        Inovação & Tech
+                    </div>
+                    <div class="data-column message-col">
+                        💡 <strong>Inovação em destaque!</strong><br><br>
+                        [Título da notícia]<br><br>
+                        🔗 [Link da notícia]<br><br>
+                        #tecnologia #inovacao
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-summary">
+                <h3>Status Atual do Sistema:</h3>
+                <div class="status-list">
+                    <div class="status-line success">✅ <strong>Alerta de turismo:</strong> Capturado e processado com sucesso</div>
+                    <div class="status-line pending">⏳ <strong>Alertas de startup e inovação:</strong> Aguardando próximos disparos do Google Alerts</div>
+                    <div class="status-line active">🔄 <strong>Sistema ativo:</strong> Monitorando 24/7 via Google Alerts → Gmail → Zapier</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="database-section">
+            <h2>📦 Base de Dados - Google Sheets (3 Abas)</h2>
+            
+            <div class="sheets-container">
+                <div class="sheet-card aba1">
+                    <div class="sheet-header">
+                        <span class="sheet-icon">📋</span>
+                        <h3>ABA 1: Alertas</h3>
+                        <div class="sheet-subtitle">(Log de execuções)</div>
+                    </div>
+                    <div class="sheet-content">
+                        <div class="column-list">
+                            <div class="column-item">• Col A: Data/Hora automática</div>
+                            <div class="column-item">• Col B: Palavra-chave detectada (vem do Zapier)</div>
+                            <div class="column-item">• Col C: Título da notícia (vem do Zapier)</div>
+                            <div class="column-item">• Col D: Link da notícia (vem do Zapier)</div>
+                            <div class="column-item">• Col E: Grupo (lookup automático)</div>
+                            <div class="column-item">• Col F: Link do Grupo (lookup automático)</div>
+                            <div class="column-item">• Col G: Mensagem formatada (template automático)</div>
+                            <div class="column-item">• Col H: Texto final (cópia da Col G)</div>
+                            <div class="column-item">• Col I: Status (Pendente/Enviado)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sheet-card aba2">
+                    <div class="sheet-header">
+                        <span class="sheet-icon">⚙️</span>
+                        <h3>ABA 2: Config</h3>
+                        <div class="sheet-subtitle">(Mapeamento palavra → grupo)</div>
+                    </div>
+                    <div class="sheet-content">
+                        <div class="config-mapping-list">
+                            <div class="mapping-item">
+                                <strong>startup,investimento,empreendedorismo</strong><br>
+                                → Empreendedores SP
+                            </div>
+                            <div class="mapping-item">
+                                <strong>turismo,sustentável,viagem</strong><br>
+                                → Viagem & Turismo
+                            </div>
+                            <div class="mapping-item">
+                                <strong>inovação,tecnologia,digital</strong><br>
+                                → Inovação & Tech
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sheet-card aba3">
+                    <div class="sheet-header">
+                        <span class="sheet-icon">📝</span>
+                        <h3>ABA 3: Template</h3>
+                        <div class="sheet-subtitle">(Modelos de mensagem)</div>
+                    </div>
+                    <div class="sheet-content">
+                        <div class="template-list">
+                            <div class="template-item">
+                                <strong>startups</strong><br>
+                                → 🚀 Novidade no mundo das startups!
+                            </div>
+                            <div class="template-item">
+                                <strong>turismo</strong><br>
+                                → ✈️ Descubra o Brasil sustentável!
+                            </div>
+                            <div class="template-item">
+                                <strong>tecnologia</strong><br>
+                                → 💡 Inovação em destaque!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formula-details">
+                <h3>Detalhamento das 8 Etapas do Zapier:</h3>
+                <div class="etapas-grid">
+                    <div class="etapa-item">
+                        <strong>1. Gmail Trigger</strong> - Monitora emails com label "AlertaZap"
+                    </div>
+                    <div class="etapa-item">
+                        <strong>2. Filter (OR)</strong> - Filtra por palavras-chave: startup, turismo, inovação
+                    </div>
+                    <div class="etapa-item">
+                        <strong>3. JS Detect Keyword</strong> - Detecta qual palavra-chave foi encontrada
+                    </div>
+                    <div class="etapa-item">
+                        <strong>4. JS Montar Mensagem</strong> - Extrai título e link da notícia
+                    </div>
+                    <div class="etapa-item">
+                        <strong>5. Sheets Create Row</strong> - Salva dados na planilha Google Sheets
+                    </div>
+                    <div class="etapa-item">
+                        <strong>6. Slack Botão</strong> - Envia notificação com botão "ENVIAR AGORA"
+                    </div>
+                    <div class="etapa-item">
+                        <strong>7. Lookup Config</strong> - Busca grupo correto na configuração
+                    </div>
+                    <div class="etapa-item">
+                        <strong>8. Slack Dinâmico</strong> - Botão direciona para o grupo WhatsApp correto
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2>🤖 3. Demonstração de Automação</h2>
+            
+            <div class="zapier-status-container">
+                <h3>Status Atual do Fluxo Zapier:</h3>
+                
+                <div class="status-columns">
+                    <div class="status-column success-column">
+                        <div class="column-header success-header">
+                            <span class="status-icon">✅</span>
+                            <strong>Etapas Funcionais (6/8):</strong>
+                        </div>
+                        <div class="status-list">
+                            <div class="status-step">• Gmail Trigger</div>
+                            <div class="status-step">• Filter OR</div>
+                            <div class="status-step">• JS Detect Keyword</div>
+                            <div class="status-step">• JS Montar Mensagem</div>
+                            <div class="status-step">• Sheets Create Row</div>
+                            <div class="status-step">• Slack botão "ENVIAR AGORA"</div>
+                        </div>
+                        <div class="completion-badge">
+                            <span class="completion-text">6 de 8 completas</span>
+                        </div>
+                    </div>
+
+                    <div class="status-column pending-column">
+                        <div class="column-header pending-header">
+                            <span class="status-icon">⚠️</span>
+                            <strong>Em Desenvolvimento (2/8):</strong>
+                        </div>
+                        <div class="status-list">
+                            <div class="status-step pending">• Lookup Config (planilha)</div>
+                            <div class="status-step pending">• Slack Dinâmico</div>
+                        </div>
+                        <div class="completion-badge pending-badge">
+                            <span class="completion-text">2 de 8 pendentes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evidence-section">
+                <h3>Prints/Evidências Funcionando:</h3>
+                
+                <div class="evidence-grid">
+                    <div class="evidence-item">
+                        <div class="evidence-header">
+                            <span class="evidence-icon">📱</span>
+                            <strong>Imagem 1: Slack - Notificações Recebidas</strong>
+                            <a href="https://i.postimg.cc/LskkmCKR/Bot-o-funcional-Slack.png" target="_blank" class="view-image-btn">
+                                🔍 Clique aqui para visualizar o print
+                            </a>
+                        </div>
+                        <div class="evidence-content">
+                            <div class="evidence-detail">• Canal #alertas-automaticos ativo</div>
+                            <div class="evidence-detail">• AlertasZap APP enviando notificações</div>
+                            <div class="evidence-detail">• Duas notificações capturadas:</div>
+                            <div class="evidence-quote">"=== Notícias - 10 novos resultados para [startup] ==="</div>
+                            <div class="evidence-quote">"=== Notícias - 10 novos resultados para [turismo] ==="</div>
+                            <div class="evidence-detail">• Botões "ENVIAR AGORA" funcionais</div>
+                            <div class="evidence-detail">• Links completos das notícias sendo exibidos</div>
+                        </div>
+                    </div>
+
+                    <div class="evidence-item">
+                        <div class="evidence-header">
+                            <span class="evidence-icon">📊</span>
+                            <strong>Imagem 2: Google Sheets - Configuração Funcionando</strong>
+                            <a href="https://i.postimg.cc/W4D3nt8y/Planilha-Sistema-Alertas-Whatsapp-v2.png" target="_blank" class="view-image-btn">
+                                🔍 Clique aqui para visualizar o print
+                            </a>
+                        </div>
+                        <div class="evidence-content">
+                            <div class="evidence-detail">• Planilha "Sistema Alertas Whatsapp v2"</div>
+                            <div class="evidence-detail">• Aba Config preenchida com 3 temas:</div>
+                            <div class="config-mapping">startup, investimento, empreendedorismo → Empreendedores SP</div>
+                            <div class="config-mapping">turismo, sustentável, viagem → Viagem & Turismo</div>
+                            <div class="config-mapping">inovação, tecnologia, digital → Inovação & Tech</div>
+                            <div class="evidence-detail">• Links dos grupos WhatsApp configurados</div>
+                            <div class="evidence-detail">• Estrutura da planilha organizada e funcional</div>
+                        </div>
+                    </div>
+
+                    <div class="evidence-item">
+                        <div class="evidence-header">
+                            <span class="evidence-icon">⚙️</span>
+                            <strong>Imagem 3: Zapier - Histórico de Execuções</strong>
+                            <a href="https://i.postimg.cc/D0hwn6hV/Zapier-History.png" target="_blank" class="view-image-btn">
+                                🔍 Clique aqui para visualizar o print
+                            </a>
+                        </div>
+                        <div class="evidence-content">
+                            <div class="evidence-detail">• Task History mostrando <strong>"Success 5 tasks"</strong></div>
+                            <div class="evidence-detail">• Execução em: jul 16, 2025 04:49:14</div>
+                            <div class="evidence-detail">• Fluxo visual das 7 etapas em funcionamento:</div>
+                            <div class="zapier-steps">
+                                <div class="zapier-step">1. ✅ Filtrar por Zapier (Condições do filtro)</div>
+                                <div class="zapier-step">2. ✅ Código por Zapier (JS Detect keyword)</div>
+                                <div class="zapier-step">3. ✅ Código por Zapier (JS Montar mensagem)</div>
+                                <div class="zapier-step">4. ✅ Planilhas Google (Criar linha da planilha)</div>
+                                <div class="zapier-step">5. ✅ Planilhas Google (Consultar linha da planilha)</div>
+                                <div class="zapier-step">6. ✅ Webhooks da Zapier (Solicitação personalizada)</div>
+                            </div>
+                            <div class="evidence-detail">• <strong>Status: 200:OK</strong> em todas as etapas</div>
+                            <div class="evidence-detail">• Integração com Google Sheets funcionando</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="technical-config">
+                <h3>Configuração Técnica:</h3>
+                <div class="config-grid">
+                    <div class="config-item">
+                        <strong>Google Sheets:</strong> 3 abas com fórmulas automáticas para lookup e formatação
+                    </div>
+                    <div class="config-item">
+                        <strong>Zapier:</strong> 8 etapas com JavaScript personalizado e integrações
+                    </div>
+                    <div class="config-item">
+                        <strong>Slack:</strong> Webhook configurado com botões interativos
+                    </div>
+                    <div class="config-item">
+                        <strong>Gmail:</strong> Filtro automático para label "AlertaZap"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2>📈 4. Justificativa Estratégica</h2>
+            <div class="results-grid">
+                <div class="result-item">
+                    <h3>🎯 Entrega de Conteúdo Relevante</h3>
+                    <p>
+                        A solução utiliza um sistema de mapeamento inteligente que associa palavras-chave específicas (startup, turismo, inovação) a grupos temáticos correspondentes. Isso garante que cada comunidade receba apenas conteúdo alinhado com seus interesses, aumentando o engajamento e a relevância das informações compartilhadas.
+                    </p>
+                </div>
+                <div class="result-item">
+                    <h3>🛡️ Prevenção de Spam</h3>
+                    <p>
+                        O sistema implementa múltiplas camadas de filtro: primeiro, o Google Alerts já pré-filtra por relevância; depois, o Zapier aplica filtros OR específicos por palavras-chave; finalmente, há uma camada manual de aprovação via Slack onde o usuário pode revisar antes de enviar.
+                    </p>
+                </div>
+                <div class="result-item">
+                    <h3>📊 Benefícios Adicionais</h3>
+                    <p>
+                        <strong>Escalabilidade:</strong> Fácil adição de novas palavras-chave e grupos<br>
+                        <strong>Rastreabilidade:</strong> Histórico completo na planilha Google Sheets<br>
+                        <strong>Flexibilidade:</strong> Templates de mensagem personalizáveis por tema<br>
+                        <strong>Controle humano:</strong> Aprovação manual via Slack antes do envio final
+                    </p>
+                </div>
+                <div class="result-item">
+                    <h3>🔧 Próximos Desenvolvimentos</h3>
+                    <p>
+                        <strong>1.</strong> Finalizar Lookup Config automático<br>
+                        <strong>2.</strong> Implementar atalhos iOS/Android<br>
+                        <strong>3.</strong> Sistema de marcação "Enviado"<br>
+                        <strong>4.</strong> Testes A/B para otimização de templates
+                    </p>
                 </div>
             </div>
         </div>
